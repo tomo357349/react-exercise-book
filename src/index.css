@@ -5,6 +5,7 @@
   --x-large-font-size: calc(var(--default-font-size) / 4 * 6);
   --xx-large-font-size: calc(var(--default-font-size) / 4 * 7);
   --xxx-large-font-size: calc(var(--default-font-size) / 4 * 8);
+  --default-font-width: calc(var(--default-font-size) * 1.0);
   --default-padding-size: calc(var(--default-font-size) / 4);
   --twice-padding-size: calc(var(--default-padding-size) * 2);
   --default-radius-size: var(--default-padding-size);
@@ -127,6 +128,7 @@ input[type="text"],
 input[type="password"],
 input[type="number"],
 input[type="date"],
+input[type="email"],
 input[type="phone"] {
   height: 24px;
   padding: var(--default-padding-size) var(--twice-padding-size);
@@ -149,6 +151,7 @@ input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
+input[type="email"]:focus,
 input[type="phone"]:focus {
   background-color: var(--bg-color);
 }
@@ -157,6 +160,7 @@ input[type="text"]:read-only,
 input[type="password"]:read-only,
 input[type="number"]:read-only,
 input[type="date"]:read-only,
+input[type="email"]:read-only,
 input[type="phone"]:read-only {
   background-color: var(--input-bg-color);
   opacity: 0.6;
@@ -166,6 +170,7 @@ input[type="text"]:disabled,
 input[type="password"]:disabled,
 input[type="number"]:disabled,
 input[type="date"]:disabled,
+input[type="email"]:disabled,
 input[type="phone"]:disabled {
   color: var(--gray-middle-color);
   cursor: not-allowed;
@@ -177,6 +182,7 @@ input[type="text"]:required:not(:disabled),
 input[type="password"]:required:not(:disabled),
 input[type="number"]:required:not(:disabled),
 input[type="date"]:required:not(:disabled),
+input[type="email"]:required:not(:disabled),
 input[type="phone"]:required:not(:disabled) {
   border-color: var(--gray-middle-color);
 }
@@ -185,8 +191,18 @@ input[type="text"]:hover:not(:disabled, :read-only),
 input[type="password"]:hover:not(:disabled, :read-only),
 input[type="number"]:hover:not(:disabled, :read-only),
 input[type="date"]:hover:not(:disabled, :read-only),
+input[type="email"]:hover:not(:disabled, :read-only),
 input[type="phone"]:hover:not(:disabled, :read-only) {
   opacity: 0.8;
+}
+
+input[type="text"]:invalid:not(:disabled),
+input[type="password"]:invalid:not(:disabled),
+input[type="number"]:invalid:not(:disabled),
+input[type="date"]:invalid:not(:disabled),
+input[type="email"]:invalid:not(:disabled),
+input[type="phone"]:invalid:not(:disabled) {
+	border-color: var(--assertive-color);
 }
 
 input[type="checkbox"] {
@@ -194,8 +210,8 @@ input[type="checkbox"] {
   flex-shrink: 0;
   width: 48px;
   height: 28px;
-  padding: var(--default-padding-size);
-  margin: var(--default-padding-size);
+  padding: 0;
+  margin: var(--default-padding-size) 0;
   appearance: none;
   cursor: default;
   background-color: var(--input-bg-color);
@@ -257,6 +273,105 @@ input[type="checkbox"].toggle-read-only {
 
 input[type="checkbox"].toggle-read-only:checked {
   background-color: var(--inactive-color);
+}
+
+.form-control-wrapper {
+  padding: var(--default-padding-size);
+  overflow: hidden;
+}
+
+.form-control {
+	position: relative;
+	display: grid;
+}
+
+.form-control>label,
+.form-control>input,
+.form-control>button {
+	min-width: 0;
+}
+
+.form-control>label {
+	grid-row: 1;
+	padding: 0 var(--default-padding-size);
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	font-size: var(--small-font-size);
+	white-space: nowrap;
+}
+
+.form-control>label::after {
+	content: ':';
+}
+
+.form-control>input:required~label {
+	font-weight: bold;
+}
+
+.form-control>input:invalid~label {
+	color: var(--assertive-color);
+}
+
+@media screen and (width > 640px) {
+  .form-control-wrapper {
+    display: inline-block;
+  }
+
+  .control-size-1chars {
+    width: calc(var(--default-font-size) * 1 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-2chars {
+    width: calc(var(--default-font-width) * 2 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-3chars {
+    width: calc(var(--default-font-width) * 3 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-4chars {
+    width: calc(var(--default-font-width) * 4 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-5chars {
+    width: calc(var(--default-font-width) * 5 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-6chars {
+    width: calc(var(--default-font-width) * 6 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-7chars {
+    width: calc(var(--default-font-width) * 7 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-8chars {
+    width: calc(var(--default-font-width) * 8 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-9chars {
+    width: calc(var(--default-font-width) * 9 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-10chars {
+    width: calc(var(--default-font-width) * 10 + var(--twice-padding-size) * 2 + var(--default-padding-size) * 2);
+  }
+
+  .control-size-fx1 {
+    flex: 1 0 1px;
+  }
+
+  .control-size-fx2 {
+    flex: 2 0 1px;
+  }
+
+  .control-size-fx3 {
+    flex: 3 0 1px;
+  }
+
+  .control-size-fx4 {
+    flex: 4 0 1px;
+  }
 }
 
 @media screen and (prefers-color-scheme: dark) {
