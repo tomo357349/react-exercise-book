@@ -1,0 +1,286 @@
+:root {
+  --default-font-size: 16px;
+  --small-font-size: calc(var(--default-font-size) / 4 * 3);
+  --large-font-size: calc(var(--default-font-size) / 4 * 5);
+  --x-large-font-size: calc(var(--default-font-size) / 4 * 6);
+  --xx-large-font-size: calc(var(--default-font-size) / 4 * 7);
+  --xxx-large-font-size: calc(var(--default-font-size) / 4 * 8);
+  --default-padding-size: calc(var(--default-font-size) / 4);
+  --twice-padding-size: calc(var(--default-padding-size) * 2);
+  --default-radius-size: var(--default-padding-size);
+  --bg-color: #fff;
+  --text-color: #000;
+  --label-color: #fff;
+  --base-color: #069;
+  --primary-color: #036;
+  --secondary-color: #063;
+  --assertive-color: #620;
+  --cancel-color: #333;
+  --inactive-color: #567;
+  --gray-light-color: #ccc;
+  --gray-middle-color: #999;
+  --gray-dark-color: #333;
+  --input-text-color: #336;
+  --input-border-color: #ccc;
+  --link-color: #036;;
+  --input-bg-color: #d7f0f7;
+
+  color-scheme: light dark;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #000;
+    --text-color: #fff;
+    --input-text-color: #ccf;
+    --link-color: #9cf;
+    --input-border-color: #333;
+    --input-bg-color: #123;
+  }
+}
+
+:focus,
+:focus-visible {
+  outline: none;
+}
+
+body,
+th,
+td,
+pre,
+li,
+label,
+input,
+button,
+textarea,
+select {
+  font-family: Meiryo, Verdana, Geneva, Tahoma, sans-serif;
+  font-size: var(--default-font-size);
+  line-height: 1.5;
+}
+
+p,
+pre {
+  margin-block: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+a:active {
+  transform: scale(0.98);
+}
+
+button {
+  padding: var(--default-padding-size) var(--twice-padding-size);
+  color: var(--label-color);
+  outline: none;
+  background-color: var(--primary-color);
+  border: solid 2px var(--primary-color);
+  border-radius: var(--default-radius-size);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:hover:not(:disabled),
+button:focus:not(:disabled) {
+  opacity: 0.8;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+button.btn-assertive {
+  background-color: var(--assertive-color);
+  border-color: var(--assertive-color);
+}
+
+button.btn-clear {
+  color: var(--text-color);
+  background-color: transparent;
+  border-color: transparent;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="phone"] {
+  height: 24px;
+  padding: var(--default-padding-size) var(--twice-padding-size);
+  color: var(--input-text-color);
+  outline: none;
+  background-color: var(--input-bg-color);
+  border: solid 2px var(--input-border-color);
+  border-radius: var(--default-radius-size);
+}
+
+input[type="number"] {
+  text-align: right;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="phone"]:focus {
+  background-color: var(--bg-color);
+}
+
+input[type="text"]:read-only,
+input[type="password"]:read-only,
+input[type="number"]:read-only,
+input[type="date"]:read-only,
+input[type="phone"]:read-only {
+  background-color: var(--input-bg-color);
+  opacity: 0.6;
+}
+
+input[type="text"]:disabled,
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="date"]:disabled,
+input[type="phone"]:disabled {
+  color: var(--gray-middle-color);
+  cursor: not-allowed;
+  background-color: var(--input-bg-color);
+  opacity: 0.5;
+}
+
+input[type="text"]:required:not(:disabled),
+input[type="password"]:required:not(:disabled),
+input[type="number"]:required:not(:disabled),
+input[type="date"]:required:not(:disabled),
+input[type="phone"]:required:not(:disabled) {
+  border-color: var(--gray-middle-color);
+}
+
+input[type="text"]:hover:not(:disabled, :read-only),
+input[type="password"]:hover:not(:disabled, :read-only),
+input[type="number"]:hover:not(:disabled, :read-only),
+input[type="date"]:hover:not(:disabled, :read-only),
+input[type="phone"]:hover:not(:disabled, :read-only) {
+  opacity: 0.8;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 28px;
+  padding: var(--default-padding-size);
+  margin: var(--default-padding-size);
+  appearance: none;
+  cursor: default;
+  background-color: var(--input-bg-color);
+  border: solid 2px var(--input-border-color);
+  border-radius: 72px;
+}
+
+input[type="checkbox"]::before {
+  position: absolute;
+  inset: -8px;
+  content: "";
+}
+
+input[type="checkbox"],
+input[type="checkbox"]::after {
+  transition: all 125ms ease-out;
+}
+
+input[type="checkbox"]::after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background-color: var(--input-border-color);
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+}
+
+input[type="checkbox"]:checked::after {
+  left: 22px;
+}
+
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input[type="checkbox"]:focus:not(:disabled)::after {
+  background-color: var(--gray-light-color);
+}
+
+input[type="checkbox"]:not(.focus-visible) {
+  outline: 0;
+}
+
+input[type="checkbox"]:hover:not(:disabled) {
+  opacity: 0.7;
+  transition-duration: 0s;
+}
+
+input[type="checkbox"].toggle-read-only {
+  background-color: var(--inactive-color);
+}
+
+input[type="checkbox"].toggle-read-only:checked {
+  background-color: var(--inactive-color);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  button:hover:not(:disabled, .btn-read-only),
+  button:focus:not(:disabled, .btn-read-only) {
+    opacity: 1;
+    filter: brightness(150%);
+  }
+
+  input[type="text"]:hover:not(:disabled, :read-only),
+  input[type="password"]:hover:not(:disabled, :read-only),
+  input[type="number"]:hover:not(:disabled, :read-only),
+  input[type="date"]:hover:not(:disabled, :read-only),
+  input[type="phone"]:hover:not(:disabled, :read-only) {
+    opacity: 1;
+    filter: brightness(150%);
+  }
+
+  input[type="checkbox"]:hover:not(:disabled) {
+    opacity: 1;
+    filter: brightness(150%);
+  }
+
+  input[type="checkbox"]:focus:not(:disabled)::after {
+    background-color: var(--gray-dark-color);
+  }
+}

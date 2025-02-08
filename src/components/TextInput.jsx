@@ -5,6 +5,6 @@ import Input from './Input.jsx';
  */
 export default function TextInput(props) {
     return (
-        <Input {...props} />
+        <Input {...props} type="text" />
 	);
 }
