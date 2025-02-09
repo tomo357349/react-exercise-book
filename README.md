@@ -13,6 +13,8 @@ Reactが上手に使えるようになるために、個人的に学んだReact�
 - TypeScript（不慣れなのでとりあえず置いておく。いずれは使う）
 
 ## 主な構成
+- react / react-dom
 - vite（なるべく標準的なものを使いたかったが、react-create-appは非推奨になってしまっているため）
 - eslint（jsとjsxの静的解析に使う）
 - stylelint（スタイルシートの静的解析と整形に使う）
+- faker（モックデータ作成に使う）

@@ -312,6 +312,97 @@ input[type="checkbox"].toggle-read-only:checked {
 	color: var(--assertive-color);
 }
 
+.data-table {
+	position: static;
+	max-width: 100vw;
+	padding: 0;
+	margin: 0;
+	empty-cells: show;
+	border-collapse: collapse;
+}
+
+.data-table-head {
+	position: sticky;
+	top: var(--twice-padding-size);
+	z-index: 102;
+	color: var(--label-color);
+	cursor: pointer;
+	background-color: var(--base-color);
+}
+
+.data-table th,
+.data-table td {
+	padding: var(--twice-padding-size);
+	vertical-align: top;
+}
+
+.data-table-head th:not([align="right"]) {
+	text-align: left;
+}
+
+.data-table-head th:hover {
+	opacity: .7;
+}
+
+.data-table td {
+	background-color: var(--bg-color);
+}
+
+.data-table-body > tr {
+	border-bottom: solid 2px var(--base-color);
+}
+
+.data-table > caption {
+	position: sticky;
+	top: 0;
+	z-index: 101;
+	max-height: var(--twice-padding-size);
+	color: transparent;
+	background-color: var(--bg-color);
+}
+
+.data-field-number {
+  text-align: right;
+}
+
+.sort-desc::after {
+	content: '▼';
+}
+
+.sort-asc::after {
+	content: '▲';
+}
+
+@media screen and (width <= 640px) {
+  .data-table {
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+  }
+  
+  .data-table-head,
+  .data-table-body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .data-table tr {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  
+  .data-table-body tr {
+    border-bottom: solid 2px var(--primary-color);
+  }
+  
+  .data-table th,
+  .data-table td {
+    display: block;
+    flex: 1 1 90%;
+    border: none;
+  }
+}
+
 @media screen and (width > 640px) {
   .form-control-wrapper {
     display: inline-block;

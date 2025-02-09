@@ -4,6 +4,26 @@ import Button from './components/Button.jsx';
 import ButtonControl from './components/ButtonControl.jsx';
 import Input from './components/Input.jsx';
 import InputControl from './components/InputControl.jsx';
+import DataTable from './components/DataTable.jsx';
+import { faker } from '@faker-js/faker';
+
+const data = new Array(faker.number.int({ min: 10, max: 1000 })).fill(0).map(() => ({
+    id: faker.string.uuid().substring(0, 8),
+    name: faker.person.fullName(),
+    sex: faker.person.sex(),
+    birthday: faker.date.birthdate().toISOString().substring(0, 10),
+    country: faker.location.country(),
+    rate: faker.number.int({ min: 0, max: 100 }),
+}));
+
+const columns = [
+    { field: 'id', label: 'ID', isKey: true, component: (d) => <a>{d.id}</a> },
+    { field: 'name', label: '氏名', },
+    { field: 'sex', label: '性別', },
+    { field: 'birthday', label: '生年月日', },
+    { field: 'country', label: '出身国', },
+    { field: 'rate', label: '正答率', type: 'number' },
+];
 
 export default function App() {
     const [form, setForm] = useState({
@@ -49,6 +69,7 @@ export default function App() {
                 <Button type="button" face="assertive">Assertive</Button>
                 <Button type="button" face="clear">Clear</Button>
             </form>
+            <DataTable data={data} columns={columns} />
         </>
     );
 }
