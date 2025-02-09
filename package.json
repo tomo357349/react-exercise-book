@@ -1,31 +1,37 @@
 {
-    "name": "react-exercise-book",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-        "start": "vite",
-        "dev": "vite",
-        "lint": "eslint . && stylelint src/index.css --fix"
-    },
-    "dependencies": {
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
-    },
-    "devDependencies": {
-        "@eslint/js": "^9.19.0",
-        "@faker-js/faker": "^9.4.0",
-        "@types/react": "^19.0.8",
-        "@types/react-dom": "^19.0.3",
-        "@vitejs/plugin-react": "^4.3.4",
-        "eslint": "^9.19.0",
-        "eslint-plugin-react": "^7.37.4",
-        "eslint-plugin-react-hooks": "^5.1.0",
-        "eslint-plugin-react-refresh": "^0.4.18",
-        "globals": "^15.14.0",
-        "stylelint": "^16.14.1",
-        "stylelint-config-recess-order": "^6.0.0",
-        "stylelint-config-standard": "^37.0.0",
-        "vite": "^6.0.11"
-    }
+  "name": "react-exercise-book",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "lint": "eslint . && stylelint src/index.css --fix"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@faker-js/faker": "^9.4.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "msw": "^2.7.0",
+    "stylelint": "^16.14.1",
+    "stylelint-config-recess-order": "^6.0.0",
+    "stylelint-config-standard": "^37.0.0",
+    "vite": "^6.0.11"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }
