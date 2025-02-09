@@ -7,6 +7,8 @@ import InputControl from './components/InputControl.jsx';
 import DataTable from './components/DataTable.jsx';
 import fetchData from './utils/fetch.js';
 import useFetch from './hooks/useFetch.js';
+import Dialog from './components/Dialog.jsx';
+import PageDialog from './PageDialog.jsx';
 
 export default function App() {
     const [form, setForm] = useState({
@@ -117,6 +119,8 @@ export default function App() {
                 <InputControl type="number" name="grade" value={form.grade} label="グレード" placeholder="グレード" onChange={handleChange} componentSize="3chars" />
                 <InputControl type="checkbox" name="isadmin" value={form.isadmin} label="管理者" onChange={handleChange} />
                 <ButtonControl type="submit">実行</ButtonControl>
+                {isFetching && <div>検索中.. <span className="loader"></span></div>}
+                {data && data.length}<br />
             </Form>
             <h2>Disabled</h2>
             <form>
@@ -132,8 +136,7 @@ export default function App() {
                 <Button type="button" face="assertive">Assertive</Button>
                 <Button type="button" face="clear">Clear</Button>
             </form>
-            {isFetching && <div>検索中.. <span className="loader"></span></div>}
-            {data && data.length}<br />
+            <PageDialog />
             <hr />
             <h2>登録フォーム</h2>
             <Form onSubmit={handleRegister}>
