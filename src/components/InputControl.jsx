@@ -9,11 +9,11 @@ function getComponentId() {
 /**
  * 入力コントロールコンポーネント
  */
-export default function InputControl({ label, componentSize, ...inputProps }) {
+export default function InputControl({ label, componentSize, icon, ...inputProps }) {
     const componentId = useRef(getComponentId()).current;
 
     return (
-        <ControlWrapper label={label} labelFor={componentId} componentSize={componentSize}>
+        <ControlWrapper label={label} labelFor={componentId} componentSize={componentSize} icon={icon}>
             <Input {...inputProps} id={componentId} />
         </ControlWrapper>
     );

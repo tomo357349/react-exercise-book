@@ -125,17 +125,17 @@ export default function App() {
             <h1>Hello World!</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <Icon name="user" face="secondary" /> Consectetur ullam commodi, natus dicta at nisi maxime tempora aspernatur modi, laboriosam, obcaecati repellat saepe quae. Exercitationem hic atque facilis enim consequuntur!</p>
             <Form onSubmit={handleRun}>
-                <InputControl required autoFocus name="userid" value={form.userid} label="ユーザID" placeholder="ユーザID" onChange={handleChange} pattern="^[a-z]+$" componentSize="6chars" />
-                <InputControl type="password" name="password" value={form.password} label="パスワード" placeholder="パスワード" onChange={handleChange} minLength="6" componentSize="8chars" />
+                <InputControl icon="user" required autoFocus name="userid" value={form.userid} label="ユーザID" placeholder="ユーザID" onChange={handleChange} pattern="^[a-z]+$" componentSize="6chars" />
+                <InputControl icon="lock" type="password" name="password" value={form.password} label="パスワード" placeholder="パスワード" onChange={handleChange} minLength="6" componentSize="8chars" />
                 <LabelControl value="あああ" />
                 <InputControl type="date" name="birthdate" value={form.birthdate} label="生年月日" placeholder="生年月日" onChange={handleChange} />
                 <InputControl type="number" name="grade" value={form.grade} label="グレード" placeholder="グレード" onChange={handleChange} componentSize="3chars" />
                 <InputControl type="checkbox" name="isadmin" value={form.isadmin} label="管理者" onChange={handleChange} />
                 <TagControl name="rate" tag={form.rate} label="正答率" face={form.rate <= 30 ? 'assertive' : 'positive'} onClick={handleClickRate} />
                 <TagControl name="rate" tag={<Icon name="user" />} />
-                <ButtonControl type="submit">実行</ButtonControl>
+                <ButtonControl icon="check" type="submit">実行</ButtonControl>
                 {isFetching && <div>検索中.. <span className="loader"></span></div>}
-                {data && data.length}<br />
+                <LabelControl value={data && data.length} />
             </Form>
             <h2>Disabled</h2>
             <form>

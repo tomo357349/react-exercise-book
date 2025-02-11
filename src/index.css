@@ -312,6 +312,30 @@ input[type="checkbox"].toggle-read-only:checked {
 	color: var(--assertive-color);
 }
 
+.form-control-with-icon>input {
+  padding-left: calc(var(--twice-padding-size) + var(--default-font-size));
+}
+
+.form-control-with-icon>input+.icon {
+  position: absolute;
+  bottom: calc(var(--twice-padding-size) + var(--default-padding-size) / 2);
+  left: var(--twice-padding-size);
+}
+
+.form-control-with-icon>button {
+  padding-left: calc(var(--twice-padding-size) + var(--default-font-size));
+}
+
+.form-control-with-icon>button+.icon {
+  position: absolute;
+  bottom: calc(var(--twice-padding-size) + var(--default-padding-size) / 2);
+  left: var(--twice-padding-size);
+}
+
+.form-control-with-icon>input:invalid+.icon > path {
+  fill: var(--assertive-color);
+}
+
 .data-table {
 	position: static;
 	max-width: 100vw;
@@ -451,7 +475,7 @@ input[type="checkbox"].toggle-read-only:checked {
 
 .form-control>.tag,
 .form-control>.text-label {
-  padding: var(--default-padding-size);
+  padding: calc(var(--default-padding-size) / 2) var(--default-padding-size);
   margin: var(--default-padding-size) 0;
 }
 

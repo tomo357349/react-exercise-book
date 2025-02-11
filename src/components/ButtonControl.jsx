@@ -4,9 +4,9 @@ import ControlWrapper from './ControlWrapper.jsx';
 /**
  * ボタンコントロールコンポーネント
  */
-export default function ButtonControl({ componentSize, ...buttonProps }) {
+export default function ButtonControl({ componentSize, icon, ...buttonProps }) {
     return (
-        <ControlWrapper componentSize={componentSize}>
+        <ControlWrapper componentSize={componentSize} icon={icon}>
             <Button {...buttonProps} />
         </ControlWrapper>
     );
