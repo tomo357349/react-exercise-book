@@ -4,9 +4,11 @@ import ButtonControl from './components/ButtonControl.jsx';
 import Dialog from './components/Dialog.jsx';
 import Form from './components/Form.jsx';
 import InputControl from './components/InputControl.jsx';
+import useToast from './hooks/useToast.js';
 
 export default function PageDialog() {
     const [isMessageShown, setIsMessageShown] = useState(false);
+    const showToast = useToast();
 
     function showMessageDialog() {
         setIsMessageShown(true);
@@ -41,6 +43,11 @@ export default function PageDialog() {
     function handleCloseFormDialog() {
         setForm({ txt1: '', txt2: '', txt3: '' });
         setIsFormShown(false);
+        showToast({
+            message: 'キャンセルされました。',
+            face: 'secondary',
+            timeout: 1500,
+        });
     }
 
     return (

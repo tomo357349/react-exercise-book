@@ -434,6 +434,50 @@ input[type="checkbox"].toggle-read-only:checked {
   flex: 1 0 1px;
 }
 
+.toast-backdrop {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 200;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding-right: 20px;
+}
+
+.toast {
+	display: inline-block;
+	max-width: 200px;
+	padding: var(--default-padding-size) var(--twice-padding-size);
+	margin: var(--twice-padding-size);
+	color: var(--label-color);
+	cursor: pointer;
+	background-color: var(--primary-color);
+	border-radius: var(--default-radius-size);
+	box-shadow: 0 0 2px #999;
+	transform: scale(1.0);
+	transform-origin: 100% 100%;
+	transition: transform 500ms ease-out 500ms;
+}
+
+.toast-appears {
+	transform: scale(1.1);
+}
+
+.toast-secondary {
+	background-color: var(--secondary-color);
+}
+
+.toast-assertive {
+	background-color: var(--assertive-color);
+}
+
+.toast-clear {
+	color: var(--text-color);
+	background-color: #0006;
+	backdrop-filter: blur(3px);
+}
+
 @media screen and (width <= 640px) {
   .data-table {
     display: flex;
