@@ -131,6 +131,20 @@ input[type="date"],
 input[type="email"],
 input[type="phone"] {
   height: 24px;
+}
+
+select {
+  height: 36px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="phone"],
+select,
+textarea {
   padding: var(--default-padding-size) var(--twice-padding-size);
   color: var(--input-text-color);
   outline: none;
@@ -152,7 +166,9 @@ input[type="password"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
 input[type="email"]:focus,
-input[type="phone"]:focus {
+input[type="phone"]:focus,
+select:focus,
+textarea:focus {
   background-color: var(--bg-color);
 }
 
@@ -161,8 +177,9 @@ input[type="password"]:read-only,
 input[type="number"]:read-only,
 input[type="date"]:read-only,
 input[type="email"]:read-only,
-input[type="phone"]:read-only {
-  background-color: var(--input-bg-color);
+input[type="phone"]:read-only,
+select.select-read-only,
+textarea:read-only {
   opacity: 0.6;
 }
 
@@ -171,10 +188,11 @@ input[type="password"]:disabled,
 input[type="number"]:disabled,
 input[type="date"]:disabled,
 input[type="email"]:disabled,
-input[type="phone"]:disabled {
+input[type="phone"]:disabled,
+select:disabled,
+textarea:disabled {
   color: var(--gray-middle-color);
   cursor: not-allowed;
-  background-color: var(--input-bg-color);
   opacity: 0.5;
 }
 
@@ -183,7 +201,9 @@ input[type="password"]:required:not(:disabled),
 input[type="number"]:required:not(:disabled),
 input[type="date"]:required:not(:disabled),
 input[type="email"]:required:not(:disabled),
-input[type="phone"]:required:not(:disabled) {
+input[type="phone"]:required:not(:disabled),
+select:required:not(:disabled),
+textarea:required:not(:disabled) {
   border-color: var(--gray-middle-color);
 }
 
@@ -192,7 +212,9 @@ input[type="password"]:hover:not(:disabled, :read-only),
 input[type="number"]:hover:not(:disabled, :read-only),
 input[type="date"]:hover:not(:disabled, :read-only),
 input[type="email"]:hover:not(:disabled, :read-only),
-input[type="phone"]:hover:not(:disabled, :read-only) {
+input[type="phone"]:hover:not(:disabled, :read-only),
+select:hover:not(:disabled, :read-only),
+textarea:hover:not(:disabled, :read-only) {
   opacity: 0.8;
 }
 
@@ -201,7 +223,9 @@ input[type="password"]:invalid:not(:disabled),
 input[type="number"]:invalid:not(:disabled),
 input[type="date"]:invalid:not(:disabled),
 input[type="email"]:invalid:not(:disabled),
-input[type="phone"]:invalid:not(:disabled) {
+input[type="phone"]:invalid:not(:disabled),
+select:invalid:not(:disabled),
+textarea:invalid:not(:disabled) {
 	border-color: var(--assertive-color);
 }
 
@@ -334,6 +358,48 @@ input[type="checkbox"].toggle-read-only:checked {
 
 .form-control-with-icon>input:invalid+.icon > path {
   fill: var(--assertive-color);
+}
+
+.accordion {
+  position: relative;
+  padding: var(--default-padding-size);
+  margin-top: calc(var(--default-font-size) / 2 + var(--default-padding-size));
+  border-top: solid 1px var(--gray-middle-color);
+}
+
+.accordion.accordion-open {
+  height: auto;
+  border: solid 1px var(--gray-middle-color);
+  border-radius: var(--default-radius-size);
+}
+
+.accordion-header {
+  position: relative;
+  top: calc(var(--default-font-size) / -2 - var(--default-padding-size) * 2);
+  margin-bottom: calc(-1 * var(--default-padding-size));
+}
+
+.accordion-title {
+  padding-right: var(--default-font-size);
+  margin: 0 var(--twice-padding-size);
+  background-color: var(--bg-color);
+}
+
+.accordion-title::after {
+  position: absolute;
+  width: calc(var(--default-font-size) / 2);
+  height: calc(var(--default-font-size) / 2);
+  content: ' ';
+  border-right: solid 1px var(--text-color);
+  border-bottom: solid 1px var(--text-color);
+  transform: translate(2px, 6px) rotate(-45deg);
+  transform-origin: 7px 7px;
+  transition-duration: 500ms;
+  transition-property: transform;
+}
+
+.accordion-open .accordion-title::after {
+  transform: translate(2px, 6px) rotate(45deg);
 }
 
 .data-table {
@@ -692,7 +758,9 @@ input[type="checkbox"].toggle-read-only:checked {
   input[type="password"]:hover:not(:disabled, :read-only),
   input[type="number"]:hover:not(:disabled, :read-only),
   input[type="date"]:hover:not(:disabled, :read-only),
-  input[type="phone"]:hover:not(:disabled, :read-only) {
+  input[type="phone"]:hover:not(:disabled, :read-only),
+  select:hover:not(:disabled, :read-only),
+  textarea:hover:not(:disabled, :read-only) {
     opacity: 1;
     filter: brightness(150%);
   }

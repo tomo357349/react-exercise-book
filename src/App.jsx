@@ -13,6 +13,9 @@ import TagLabel from './components/TagLabel.jsx';
 import TagControl from './components/TagLabelControl.jsx';
 import LabelControl from './components/LabelControl.jsx';
 import Icon from './components/Icon.jsx';
+import MultiLineInputControl from './components/MultiLineInputControl.jsx';
+import SelectControl from './components/SelectControl.jsx';
+import Accordion from './components/Accordion.jsx';
 
 export default function App() {
     const [form, setForm] = useState({
@@ -27,12 +30,14 @@ export default function App() {
     const [registerForm, setRegisterForm] = useState({
         id: '',
         name: '',
+        sex: '',
         birtyday: '',
         country: '',
         rate: '',
     });
     const [searchForm, setSearchForm] = useState({
         name: '',
+        sex: '',
         country: '',
     });
     const [searchResult, setSearchResult] = useState();
@@ -132,7 +137,8 @@ export default function App() {
                 <InputControl type="number" name="grade" value={form.grade} label="グレード" placeholder="グレード" onChange={handleChange} componentSize="3chars" />
                 <InputControl type="checkbox" name="isadmin" value={form.isadmin} label="管理者" onChange={handleChange} />
                 <TagControl name="rate" tag={form.rate} label="正答率" face={form.rate <= 30 ? 'assertive' : 'positive'} onClick={handleClickRate} />
-                <TagControl name="rate" tag={<Icon name="user" />} />
+                <TagControl name="rate" tag={<Icon name="user" />} /><br />
+                <MultiLineInputControl name="desc" label="説明" rows="2" /><br />
                 <ButtonControl icon="check" type="submit">実行</ButtonControl>
                 {isFetching && <div>検索中.. <span className="loader"></span></div>}
                 <LabelControl value={data && data.length} />
@@ -152,23 +158,34 @@ export default function App() {
                 <Button type="button" face="clear">Clear</Button>
             </form>
             <PageDialog />
-            <hr />
-            <h2>登録フォーム</h2>
-            <Form onSubmit={handleRegister}>
-                <InputControl readOnly label="ID" name="id" value={registerForm.id} onChange={handleChangeRegisterForm} />
-                <InputControl label="氏名" name="name" value={registerForm.name} onChange={handleChangeRegisterForm} />
-                <InputControl label="出身国" name="country" value={registerForm.country} onChange={handleChangeRegisterForm} />
-                <ButtonControl type="submit">登録</ButtonControl>
-                <ButtonControl type="button" face="assertive" onClick={handleDelete}>削除</ButtonControl>
-                <ButtonControl type="button" face="clear" onClick={handleClear}>クリア</ButtonControl>
-            </Form>
-            <h2>検索フォーム</h2>
-            <Form onSubmit={handleSearch}>
-                <InputControl label="氏名" name="name" value={searchForm.name} onChange={handleChangeSearchForm} />
-                <InputControl label="出身国" name="country" value={searchForm.country} onChange={handleChangeSearchForm} />
-                <ButtonControl type="submit">検索</ButtonControl>
-            </Form>
-            {searchResult && <DataTable data={searchResult} columns={columns} />}
+            <Accordion title="検索と登録" open>
+                <h2>登録フォーム</h2>
+                <Form onSubmit={handleRegister}>
+                    <InputControl readOnly label="ID" name="id" value={registerForm.id} onChange={handleChangeRegisterForm} />
+                    <InputControl label="氏名" name="name" value={registerForm.name} onChange={handleChangeRegisterForm} />
+                    <InputControl label="出身国" name="country" value={registerForm.country} onChange={handleChangeRegisterForm} />
+                    <SelectControl label="性別" name="sex" value={registerForm.sex} onChange={handleChangeRegisterForm} options={[
+                        { label: '', value: '' },
+                        { label: '男性', value: 'male' },
+                        { label: '女性', value: 'female' }
+                    ]} />
+                    <ButtonControl type="submit">登録</ButtonControl>
+                    <ButtonControl type="button" face="assertive" onClick={handleDelete}>削除</ButtonControl>
+                    <ButtonControl type="button" face="clear" onClick={handleClear}>クリア</ButtonControl>
+                </Form>
+                <h2>検索フォーム</h2>
+                <Form onSubmit={handleSearch}>
+                    <InputControl label="氏名" name="name" value={searchForm.name} onChange={handleChangeSearchForm} />
+                    <InputControl label="出身国" name="country" value={searchForm.country} onChange={handleChangeSearchForm} />
+                    <SelectControl label="性別" name="sex" value={searchForm.sex} onChange={handleChangeSearchForm} options={[
+                        { label: '', value: '' },
+                        { label: '男性', value: 'male' },
+                        { label: '女性', value: 'female' }
+                    ]} />
+                    <ButtonControl type="submit">検索</ButtonControl>
+                </Form>
+                {searchResult && <DataTable data={searchResult} columns={columns} />}
+            </Accordion>
         </ToastContainer>
     );
 }

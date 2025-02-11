@@ -36,7 +36,7 @@ const handlers = [
             return params.reduce((res, p) => {
                 if (!res) return res;
                 const v = d[p.key];
-                if (typeof(v) === 'string') return v.indexOf(p.value) > -1;
+                if (['name', 'country', 'birthday'].indexOf(p.key) > -1) return v.indexOf(p.value) > -1;
                 if (typeof(v) === 'number') return +p.value && +p.value === v;
                 else return v === p.value;
             }, true);
