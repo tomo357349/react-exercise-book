@@ -373,6 +373,64 @@ input[type="checkbox"].toggle-read-only:checked {
 	content: '▲';
 }
 
+* + .tag {
+	margin-left: var(--default-padding-size);
+}
+
+.tag {
+	display: inline-block;
+	padding: 0 var(--twice-padding-size);
+	margin-right: var(--default-padding-size);
+	font-size: var(--small-font-size);
+	color: var(--label-color);
+	text-align: center;
+	cursor: pointer;
+	background-color: var(--primary-color);
+	border: solid 2px var(--primary-color);
+	border-radius: var(--default-font-size);
+}
+
+.tag-secondary {
+	background-color: var(--secondary-color);
+	border-color: var(--secondary-color);
+}
+
+.tag-assertive {
+	background-color: var(--assertive-color);
+	border-color: var(--assertive-color);
+}
+
+.tag-clear {
+	background-color: var(--clear-color);
+	border-color: var(--clear-color);
+}
+
+.tag-disabled {
+	color: var(--primary-color);
+	background-color: #0006;
+}
+
+.tag-disabled.tag-secondary {
+	color: var(--secondary-color);
+	background-color: #0006;
+}
+
+.tag-disabled.tag-assertive {
+	color: var(--assertive-color);
+	background-color: #0006;
+}
+
+.tag-disabled.tag-cancel {
+	color: var(--cancel-color);
+	background-color: #0006;
+}
+
+.form-control>.tag,
+.form-control>.text-label {
+  padding: var(--default-padding-size) 0;
+  margin: var(--default-padding-size) 0;
+}
+
 .dialog-backdrop {
 	position: fixed;
 	inset: 0;

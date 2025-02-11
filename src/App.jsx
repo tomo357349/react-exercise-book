@@ -9,6 +9,9 @@ import fetchData from './utils/fetch.js';
 import useFetch from './hooks/useFetch.js';
 import PageDialog from './PageDialog.jsx';
 import ToastContainer from './components/ToastContainer.jsx';
+import TagLabel from './components/TagLabel.jsx';
+import TagControl from './components/TagLabelControl.jsx';
+import LabelControl from './components/LabelControl.jsx';
 
 export default function App() {
     const [form, setForm] = useState({
@@ -39,9 +42,13 @@ export default function App() {
     }, [setRegisterForm]);
 
     const columns = useMemo(() => [
-        { field: 'id', label: 'ID', isKey: true, component: (d) => <a onClick={(evt) => handleSelectResultItem(evt, d)}>{d.id}</a> },
+        { field: 'id', label: 'ID', isKey: true, component: (d) => (
+            <a onClick={(evt) => handleSelectResultItem(evt, d)}>{d.id}</a>
+        ) },
         { field: 'name', label: '氏名', },
-        { field: 'sex', label: '性別', },
+        { field: 'sex', label: '性別', component: (d) => (
+            <TagLabel tag={d.sex} face={d.sex==='female' ? 'assertive' : 'primary'} />
+        ) },
         { field: 'birthday', label: '生年月日', },
         { field: 'country', label: '出身国', },
         { field: 'rate', label: '正答率', type: 'number' },
@@ -49,6 +56,10 @@ export default function App() {
 
     function handleChange(value, name) {
         setForm({...form, [name]: value});
+    }
+
+    function handleClickRate() {
+        setForm(form => ({...form, rate: form.rate + 10}));
     }
 
     async function handleRun() {
@@ -115,9 +126,11 @@ export default function App() {
             <Form onSubmit={handleRun}>
                 <InputControl required autoFocus name="userid" value={form.userid} label="ユーザID" placeholder="ユーザID" onChange={handleChange} pattern="^[a-z]+$" componentSize="6chars" />
                 <InputControl type="password" name="password" value={form.password} label="パスワード" placeholder="パスワード" onChange={handleChange} minLength="6" componentSize="8chars" />
+                <LabelControl value="あああ" />
                 <InputControl type="date" name="birthdate" value={form.birthdate} label="生年月日" placeholder="生年月日" onChange={handleChange} />
                 <InputControl type="number" name="grade" value={form.grade} label="グレード" placeholder="グレード" onChange={handleChange} componentSize="3chars" />
                 <InputControl type="checkbox" name="isadmin" value={form.isadmin} label="管理者" onChange={handleChange} />
+                <TagControl name="rate" tag={form.rate} label="正答率" face={form.rate <= 30 ? 'assertive' : 'positive'} onClick={handleClickRate} />
                 <ButtonControl type="submit">実行</ButtonControl>
                 {isFetching && <div>検索中.. <span className="loader"></span></div>}
                 {data && data.length}<br />
