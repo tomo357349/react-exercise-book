@@ -12,6 +12,7 @@ import ToastContainer from './components/ToastContainer.jsx';
 import TagLabel from './components/TagLabel.jsx';
 import TagControl from './components/TagLabelControl.jsx';
 import LabelControl from './components/LabelControl.jsx';
+import Icon from './components/Icon.jsx';
 
 export default function App() {
     const [form, setForm] = useState({
@@ -122,7 +123,7 @@ export default function App() {
     return (
         <ToastContainer>
             <h1>Hello World!</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ullam commodi, natus dicta at nisi maxime tempora aspernatur modi, laboriosam, obcaecati repellat saepe quae. Exercitationem hic atque facilis enim consequuntur!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <Icon name="user" face="secondary" /> Consectetur ullam commodi, natus dicta at nisi maxime tempora aspernatur modi, laboriosam, obcaecati repellat saepe quae. Exercitationem hic atque facilis enim consequuntur!</p>
             <Form onSubmit={handleRun}>
                 <InputControl required autoFocus name="userid" value={form.userid} label="ユーザID" placeholder="ユーザID" onChange={handleChange} pattern="^[a-z]+$" componentSize="6chars" />
                 <InputControl type="password" name="password" value={form.password} label="パスワード" placeholder="パスワード" onChange={handleChange} minLength="6" componentSize="8chars" />
@@ -131,6 +132,7 @@ export default function App() {
                 <InputControl type="number" name="grade" value={form.grade} label="グレード" placeholder="グレード" onChange={handleChange} componentSize="3chars" />
                 <InputControl type="checkbox" name="isadmin" value={form.isadmin} label="管理者" onChange={handleChange} />
                 <TagControl name="rate" tag={form.rate} label="正答率" face={form.rate <= 30 ? 'assertive' : 'positive'} onClick={handleClickRate} />
+                <TagControl name="rate" tag={<Icon name="user" />} />
                 <ButtonControl type="submit">実行</ButtonControl>
                 {isFetching && <div>検索中.. <span className="loader"></span></div>}
                 {data && data.length}<br />

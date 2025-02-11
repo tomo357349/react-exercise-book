@@ -9,6 +9,7 @@
     "lint": "eslint . && stylelint src/index.css --fix"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
