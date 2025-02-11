@@ -12,8 +12,13 @@ Reactが上手に使えるようになるために、個人的に学んだReact�
 - APIのバックエンド処理（とりあえずモックで代替する）
 - TypeScript（不慣れなのでとりあえず置いておく。いずれは使う）
 
-## 主な構成
+## 主な環境構成
+### 実行環境
 - react / react-dom
+- fontawesome（アイコン表示に使う）
+- normalize.css（CSSリセット）
+
+### 開発環境
 - vite（なるべく標準的なものを使いたかったが、react-create-appは非推奨になってしまっているため）
 - eslint（jsとjsxの静的解析に使う）
 - stylelint（スタイルシートの静的解析と整形に使う）
