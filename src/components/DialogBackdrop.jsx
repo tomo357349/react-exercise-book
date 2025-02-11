@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 function containsElement(el, expectedParent) {
 	if (!el.parentNode) return false;
 	if (el.parentNode === expectedParent) return true;
-	return checkParent(el.parentNode, expectedParent);
+	return containsElement(el.parentNode, expectedParent);
 }
 
 /**
