@@ -12,10 +12,10 @@ import { isSame } from '../utils/object.js';
 
 /**
  * フェッチ処理で取得したデータ
- * @param {string} url
- * @param {any} params
- * @param {RequestInit} opts
- * @returns {IUseFetchResults}
+ * @param {string} url リクエストURL
+ * @param {any} [params] リクエストパラメータ
+ * @param {RequestInit} [opts] リクエストオプション
+ * @returns {IUseFetchResults} フェッチ処理結果
  */
 export default function useFetch(initialUrl, initialParams, initialOpts) {
     const paramsRef = useRef();
@@ -49,7 +49,7 @@ export default function useFetch(initialUrl, initialParams, initialOpts) {
         } finally {
             setIsFetching(false);
         }
-    }, [paramsRef, optsRef, setIsFetching, setData, setError]);
+    }, [setIsFetching, setData, setError]);
 
     useEffect(() => {
         if (!initialUrl) return;
@@ -63,7 +63,7 @@ export default function useFetch(initialUrl, initialParams, initialOpts) {
                 console.error(err);
             }
         }
-    }, [initialUrl, currentParams, currentOpts]);
+    }, [initialUrl, currentParams, currentOpts, fetchNext]);
 
     return { data, isFetching, error, fetchNext };
 }

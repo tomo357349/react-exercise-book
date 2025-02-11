@@ -3,8 +3,8 @@ import { isEmpty } from './object.js';
 /**
  * JSONオブジェクトをクエリストリングに変換します。
  *
- * @param {any} params 
- * @returns {string}
+ * @param {any} params JSONオブジェクト
+ * @returns {string} クエリストリング
  */
 function toQueryString(params) {
 	if (!params) return '';
@@ -23,7 +23,7 @@ function toQueryString(params) {
  * @param {string} url URL
  * @param {any} params JSONオブジェクト
  * @param {RequestInit} opts fetchリクエストのオプション（bodyは引数paramsで上書きされます）
- * @returns {any}
+ * @returns {Promise<any>} フェッチ結果
  */
 export default async function fetchData(url, params, opts) {
     let body = opts && opts.body;

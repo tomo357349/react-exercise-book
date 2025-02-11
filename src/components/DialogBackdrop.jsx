@@ -29,11 +29,13 @@ export default function DialogBackdrop({ onClose, onAction, children }) {
 		const el = ref.current;
 		if (!containsElement(document.activeElement, el)) el.focus();
 
+		const lastEl = lastRef.current;
+
 		return () => {
 			// development mode対策：初回の破棄時にはまだこのダイアログ内のコンポーネントにフォーカスがあるので無視する
 			if (containsElement(document.activeElement, el)) return;
 
-			if (lastRef.current) lastRef.current.focus();
+			if (lastEl) lastEl.focus();
 		};
 	}, []);
 

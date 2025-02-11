@@ -2,7 +2,7 @@
  * 引数がnullやundefinedでないかどうかを調べます。
  *
  * @param {any} o 
- * @returns {boolean}
+ * @returns {boolean} nullやundefinedでないならtrue
  */
 export function isVoid(o) {
 	if (o === undefined) return true;
@@ -14,7 +14,7 @@ export function isVoid(o) {
  * 引数がnullやundefinedか空文字でないかどうかを調べます。
  *
  * @param {any} o 
- * @returns {boolean}
+ * @returns {boolean} nullやundefinedか空文字でないならtrue
  */
 export function isEmpty(o) {
 	if (o === undefined) return true;
@@ -28,7 +28,7 @@ export function isEmpty(o) {
  *
  * @param {any} a 
  * @param {any} b 
- * @returns {boolean}
+ * @returns {boolean} 同じならtrue
  */
 export function isSame(a, b) {
 	if (Object.is(a, b)) return true;

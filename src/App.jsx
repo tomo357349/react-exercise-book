@@ -7,8 +7,8 @@ import InputControl from './components/InputControl.jsx';
 import DataTable from './components/DataTable.jsx';
 import fetchData from './utils/fetch.js';
 import useFetch from './hooks/useFetch.js';
-import Dialog from './components/Dialog.jsx';
 import PageDialog from './PageDialog.jsx';
+import ToastContainer from './components/ToastContainer.jsx';
 
 export default function App() {
     const [form, setForm] = useState({
@@ -109,7 +109,7 @@ export default function App() {
     }
 
     return (
-        <>
+        <ToastContainer>
             <h1>Hello World!</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ullam commodi, natus dicta at nisi maxime tempora aspernatur modi, laboriosam, obcaecati repellat saepe quae. Exercitationem hic atque facilis enim consequuntur!</p>
             <Form onSubmit={handleRun}>
@@ -154,6 +154,6 @@ export default function App() {
                 <ButtonControl type="submit">検索</ButtonControl>
             </Form>
             {searchResult && <DataTable data={searchResult} columns={columns} />}
-        </>
+        </ToastContainer>
     );
 }

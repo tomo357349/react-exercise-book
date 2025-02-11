@@ -6,6 +6,9 @@ import './index.css';
 
 createApplication();
 
+/**
+ * mswを起動する
+ */
 async function startMsw() {
 	const { worker } = await import('./mocks/browser.js');
 	await worker.start({
@@ -19,6 +22,9 @@ async function startMsw() {
 	});
 }
 
+/**
+ * アプリケーションを作成する
+ */
 async function createApplication() {
 	if (process.env.NODE_ENV === 'development') {
 		await startMsw();

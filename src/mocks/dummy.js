@@ -37,7 +37,7 @@ const handlers = [
                 if (!res) return res;
                 const v = d[p.key];
                 if (typeof(v) === 'string') return v.indexOf(p.value) > -1;
-                if (typeof(v) === number) return +p.value && +p.value === v;
+                if (typeof(v) === 'number') return +p.value && +p.value === v;
                 else return v === p.value;
             }, true);
         });
