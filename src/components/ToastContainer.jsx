@@ -47,7 +47,7 @@ export default function ToastContainer({ children }) {
 	return (
         <ToastContext value={showToast}>
             {children}
-            {toasts.length && <div className="toast-backdrop">
+            {toasts.length > 0 && <div className="toast-backdrop">
                 {toasts.map(d => (
                     <Toast key={d.id}
                         message={d.message}
