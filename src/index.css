@@ -94,6 +94,10 @@ button {
   border-radius: var(--default-radius-size);
 }
 
+.form-control-with-icon>button {
+  padding-left: calc(var(--twice-padding-size) + var(--default-font-size));
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -340,26 +344,6 @@ input[type="checkbox"].toggle-read-only:checked {
   padding-left: calc(var(--twice-padding-size) + var(--default-font-size));
 }
 
-.form-control-with-icon>input+.icon {
-  position: absolute;
-  bottom: calc(var(--twice-padding-size) + var(--default-padding-size) / 2);
-  left: var(--twice-padding-size);
-}
-
-.form-control-with-icon>button {
-  padding-left: calc(var(--twice-padding-size) + var(--default-font-size));
-}
-
-.form-control-with-icon>button+.icon {
-  position: absolute;
-  bottom: calc(var(--twice-padding-size) + var(--default-padding-size) / 2);
-  left: var(--twice-padding-size);
-}
-
-.form-control-with-icon>input:invalid+.icon > path {
-  fill: var(--assertive-color);
-}
-
 .accordion {
   position: relative;
   padding: var(--default-padding-size);
@@ -377,6 +361,7 @@ input[type="checkbox"].toggle-read-only:checked {
   position: relative;
   top: calc(var(--default-font-size) / -2 - var(--default-padding-size) * 2);
   margin-bottom: calc(-1 * var(--default-padding-size));
+  cursor: pointer;
 }
 
 .accordion-title {
@@ -485,6 +470,22 @@ input[type="checkbox"].toggle-read-only:checked {
 
 .icon.icon-cancel > path {
   fill: var(--cancel-color);
+}
+
+.form-control-with-icon>input+.icon {
+  position: absolute;
+  bottom: calc(var(--twice-padding-size) + var(--default-padding-size) / 2);
+  left: var(--twice-padding-size);
+}
+
+.form-control-with-icon>button+.icon {
+  position: absolute;
+  bottom: calc(var(--twice-padding-size) + var(--default-padding-size) / 2);
+  left: var(--twice-padding-size);
+}
+
+.form-control-with-icon>input:invalid+.icon > path {
+  fill: var(--assertive-color);
 }
 
 * + .tag {

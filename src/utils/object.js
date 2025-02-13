@@ -74,3 +74,12 @@ export function isSame(a, b) {
 	}
 	return false;
 }
+
+export function hasAnyValue(o) {
+	if (o === undefined) return false;
+	if (o === null) return false;
+	if (o === '') return false;
+	if (Array.isArray(o) && o.length === 0) return false;
+	if (typeof(o) === 'object' && !Object.keys(o).reduce((hasValue, k) => hasValue || !isEmpty(o[k]), false)) return false;
+	return true;
+}
