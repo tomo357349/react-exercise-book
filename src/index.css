@@ -37,12 +37,67 @@
     --link-color: #9cf;
     --input-border-color: #333;
     --input-bg-color: #123;
-  }
+    --gray-light-color: #333;
+    --gray-dark-color: #ccc;
+    }
 }
 
 :focus,
 :focus-visible {
   outline: none;
+}
+
+#root {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex: 0 0 40px;
+  flex-direction: row;
+  background-color: var(--base-color);
+}
+
+main {
+  flex: 1 0 1px;
+  padding: var(--default-padding-size);
+  overflow: auto;
+}
+
+footer {
+  flex: 0 0 24px;
+  background-color: var(--gray-light-color);
+}
+
+nav {
+  position: fixed;
+  top: calc(var(--twice-padding-size) * 2 + var(--x-large-font-size));
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  background-color: var(--bg-color);
+  border-right: solid 2px var(--gray-light-color);
+  transform: translate(-242px, 0);
+  transition-duration: 500ms;
+  transition-property: transform;
+}
+
+nav.appear {
+  transform: translate(0, 0);
+}
+
+.page-title {
+  padding: var(--twice-padding-size);
+  font-size: var(--x-large-font-size);
+  line-height: 1;
+}
+
+.page-status {
+  padding: var(--default-padding-size) var(--twice-padding-size);
+  line-height: 1;
 }
 
 body,
@@ -83,6 +138,15 @@ a:focus {
 
 a:active {
   transform: scale(0.98);
+}
+
+nav ul {
+  padding-inline-start: 0;
+  list-style-type: none;
+}
+
+nav li {
+  padding: var(--twice-padding-size);
 }
 
 button {
@@ -431,9 +495,16 @@ input[type="checkbox"].toggle-read-only:checked {
 	position: sticky;
 	top: 0;
 	z-index: 101;
+	height: var(--twice-padding-size);
 	max-height: var(--twice-padding-size);
 	color: transparent;
 	background-color: var(--bg-color);
+}
+
+main .data-table > caption {
+  top: calc(-1 * var(--default-padding-size));
+  height: calc(var(--twice-padding-size) + var(--default-padding-size));
+  max-height: calc(var(--twice-padding-size) + var(--default-padding-size));
 }
 
 .data-field-number {
@@ -623,18 +694,23 @@ input[type="checkbox"].toggle-read-only:checked {
 	max-width: 200px;
 	padding: var(--default-padding-size) var(--twice-padding-size);
 	margin: var(--twice-padding-size);
-	color: var(--label-color);
+	color: var(--light-label-color);
 	cursor: pointer;
-	background-color: var(--primary-color);
+	background-color: var(--light-primary-color);
 	border-radius: var(--default-radius-size);
 	box-shadow: 0 0 2px #999;
+	opacity: 1;
 	transform: scale(1.0);
 	transform-origin: 100% 100%;
-	transition: transform 500ms ease-out 500ms;
+	transition: transform 500ms ease-out 500ms, opacity 500ms ease-out 500ms;
 }
 
 .toast-appears {
 	transform: scale(1.1);
+}
+
+.toast-hiding {
+	opacity: 0;
 }
 
 .toast-secondary {

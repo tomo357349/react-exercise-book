@@ -3,10 +3,12 @@ import Form from '../../components/Form.jsx';
 import InputControl from '../../components/InputControl';
 import NavLink from '../../components/NavLink';
 import useQueryStringForm from '../../hooks/useQueryStringForm.js';
+import useTitle from '../../hooks/useTitle.js';
 import SubPage from './SubPage.jsx';
 
 export default function Page() {
     console.log('Page');
+    useTitle('クエリストリング');
     const [form, setForm, setQuery] = useQueryStringForm({ key1: '', key2: 0, key3: false });
 
     function handleInput(value, name) {

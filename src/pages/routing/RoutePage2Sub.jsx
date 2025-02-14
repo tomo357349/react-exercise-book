@@ -3,11 +3,14 @@ import NavLink from '../../components/NavLink.jsx';
 import Routes from '../../components/Routes.jsx';
 import useRouterParams from '../../hooks/useRouterParams.js';
 import RoutePage2Query from './RoutePage2Query.jsx';
+import useTitle from '../../hooks/useTitle.js';
 
 export default function RoutePage2Sub() {
 	console.log('render RoutePage2Sub');
 
 	const { id } = useRouterParams();
+
+	useTitle('ルーティング | Page2 | ' + id);
 
 	return (
 		<article>
@@ -21,6 +24,7 @@ export default function RoutePage2Sub() {
 				<li><NavLink to="/routing/page2/3/yyy">go to page2/3/yyy</NavLink></li>
 			</ul>
 			<Routes>
+				<Route path="" element={<>void</>} />
 				<Route path=":name" element={<RoutePage2Query />} />
 			</Routes>
 		</article>

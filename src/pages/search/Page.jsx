@@ -6,8 +6,10 @@ import DataTable from '../../components/DataTable.jsx';
 import fetchData from '../../utils/fetch.js';
 import TagLabel from '../../components/TagLabel.jsx';
 import SelectControl from '../../components/SelectControl.jsx';
+import useTitle from '../../hooks/useTitle.js';
 
 export default function Page() {
+    useTitle('検索・登録');
     const [registerForm, setRegisterForm] = useState({
         id: '',
         name: '',
