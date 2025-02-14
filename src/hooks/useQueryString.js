@@ -1,66 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { isEmpty, isSame, hasAnyValue } from '../utils/object.js';
+import { isSame } from '../utils/object.js';
 import { subscribeState, unsubscribeState } from '../utils/route.js';
-
-/**
- * クエリストリングの値文字列を適切なデータ型に変換する
- *
- * @param {string} v 
- * @param {*} p 
- * @returns {*}
- */
-function parseByValueType(v, p) {
-	if (!v) return p;
-
-	const typ = typeof(p);
-	if (typ === 'number') {
-		return +v;
-	} else if (typ === 'boolean') {
-		return v === 'true' || v === '1';
-	} else {
-		return v;
-	}
-}
-
-/**
- * 値をクエリストリング用文字列に変換する
- * @param {*} v 
- * @returns {string}
- */
-function formatValue(v) {
-	const typ = typeof(v);
-	if (typ === 'number') {
-		return ''+v;
-	} else if (typ === 'boolean') {
-		return v ? 'true' : 'false';
-	} else if (v instanceof Date) {
-		return v.toISOString();
-	} else {
-		return v;
-	}
-}
-
-/**
- * クエリストリングからパラメータを読み取る
- *
- * @param {URLSearchParams} searchParams 
- * @param {*} init 
- * @param {boolean} overwriteAll 
- * @returns {*}
- */
-export function getParams(searchParams, init, overwriteAll) {
-	const o = {};
-	Object.keys(init).map(k => {
-		o[k] = parseByValueType(searchParams.get(k), init[k]);
-	});
-	if (overwriteAll && !hasAnyValue(o, { zero: true, bool: true })) {
-		Object.keys(init).map(k => {
-			o[k] = parseByValueType(searchParams.get(k), init[k]);
-		});
-	}
-	return o;
-}
+import { getQueryObject, updateQueryString } from '../utils/querystring.js';
 
 /**
  * クエリストリングの読み取りと書き込みを行うメソッドを返す
@@ -82,19 +24,18 @@ export default function useQueryString(defaultParams, ignoreStateChange) {
 	/**
 	 * クエリストリングからクエリオブジェクトを作成する
 	 */
-	const getQueryString = useCallback(() => {
-		const url = new URL(window.location);
-		return getParams(url.searchParams, oldParams.current, true);
+	const getQuery = useCallback(() => {
+		return getQueryObject(oldParams.current, true);
 	}, []);
 
 	// クエリオブジェクト
-	const [query, setQuery] = useState(getQueryString());
+	const [query, setQuery] = useState(getQuery());
 
 	/**
 	 * クエリオブジェクトを更新する
 	 */
 	const updateQuery = useCallback(() => {
-		const nextQuery = getQueryString();
+		const nextQuery = getQuery();
 		setQuery(nextQuery);
 		return nextQuery;
 	}, [setQuery]);
@@ -110,21 +51,12 @@ export default function useQueryString(defaultParams, ignoreStateChange) {
 	/**
 	 * クエリオブジェクトをクエリストリングに反映する
 	 */
-	const setQueryString = useCallback((q, replaced) => {
+	const handleSetQuery = useCallback((q, replaced) => {
 		if (!q) return updateQuery();
 
-		const url = new URL(window.location);
-		Object.keys(q).forEach(k => {
-			if (isEmpty(q[k], { zero: true, bool: true })) url.searchParams.delete(k);
-			else url.searchParams.set(k, formatValue(q[k]));
-		});
-		if (replaced) {
-			window.history.replaceState(window.history.state, '', url.href);
-		} else {
-			window.history.pushState({ id: crypto.randomUUID() }, '', url.href);
-		}
+		updateQueryString(q, replaced);
 		return updateQuery();
 	}, [updateQuery]);
 
-	return [query, setQueryString];
+	return [query, handleSetQuery];
 }
