@@ -1,6 +1,7 @@
 let currentRoute = [];
 let currentParams = {};
 const subscriptions = [];
+const delayedSubscriptions = [];
 let lastSubscription = null;
 
 /**
@@ -93,12 +94,20 @@ export function createRouteTree() {
  * jumpToメソッドによりhistoryにpushStateされたときに実行される
  *
  * @param {function} callback
- * @param {boolean} isRoot ルートノードとして使う場合true
- * @param {boolean} isLast 最後のハンドラとして使う場合true
+ * @param {{root: boolean, last: boolean, watch: boolean}} options rootはルートノードとして使う場合true、lastは最後のハンドラとして使う場合true、watchはルーティングとは関係のない個所でステート変更を監視する場合true
  */
-export function subscribeState(callback, isRoot, isLast) {
-	subscriptions[isRoot ? 'unshift' : 'push'](callback);
-	if (isLast) lastSubscription = callback;
+export function subscribeState(callback, {root, last, watch} = {}) {
+	if (last) {
+		// すべてのルーティングが終わった後に実行するハンドラ
+		lastSubscription = callback;
+	} else if (watch) {
+		// Router関連ではない処理、たとえばuseQueryStringなどのハンドラは
+		// ルーティングによってコンポーネント自体が破棄され
+		// サブスクライブが不要になる場合があるため遅延実行するグループに入れる
+		delayedSubscriptions.push(callback);
+	} else {
+		subscriptions[root ? 'unshift' : 'push'](callback);
+	}
 }
 
 /**
@@ -109,7 +118,24 @@ export function subscribeState(callback, isRoot, isLast) {
 export function unsubscribeState(callback) {
 	const idx = subscriptions.indexOf(callback);
 	if (idx > -1) subscriptions.splice(idx, 1);
+
+	const idx2 = delayedSubscriptions.indexOf(callback);
+	if (idx2 > -1) delayedSubscriptions.splice(idx2, 1);
+
 	if (lastSubscription === callback) lastSubscription = null;
+}
+
+/**
+ * サブスクライブ要求されているハンドラを全て呼び出す。
+ */
+function callSubscriptions() {
+	// ハンドラを順にコールする。ルーティングの上から順。
+	subscriptions.forEach(callback => callback());
+	// 最後のハンドラをコールする。（ルーティングパラメータはルーティングが決定したあとに処理したい）
+	if (lastSubscription) lastSubscription();
+	// 遅延実行グループのハンドラをコールする。このハンドラは、ルーティングの結果、破棄されたコンポーネントによって
+	// タイムアウトしている間になくなっている場合がある。
+	setTimeout(() => delayedSubscriptions.forEach(callback => callback()), 0);
 }
 
 /**
@@ -126,8 +152,7 @@ export function back() {
  */
 export function jump(to) {
 	window.history.pushState({ id: crypto.randomUUID() }, '', to);
-	subscriptions.forEach(callback => callback());
-	if (lastSubscription) lastSubscription();
+	callSubscriptions();
 }
 
 /**
@@ -140,7 +165,9 @@ export function jump(to) {
  */
 export function replace(to) {
 	window.history.replaceState(window.history.state, '', to);
-	// subscriptions.forEach(callback => callback());
+	// replaceの場合はルートは変わらないのでサブスクライブしない。
+	// また、replaceStateしたコンポーネント自身がステートが変わっていることを認識しているので
+	// 遅延実行するグループのハンドラも呼び出さない。
 }
 
 /**
@@ -157,6 +184,5 @@ export function href(to) {
 }
 
 window.addEventListener('popstate', () => {
-	subscriptions.forEach(callback => callback());
-	if (lastSubscription) lastSubscription();
+	callSubscriptions();
 });

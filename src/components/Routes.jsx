@@ -42,7 +42,7 @@ function selectChild(children) {
  */
 export default function Routes({ element: Element, children }) {
 	const [child, setChild] = useState();
-	const [cnt, setCnt] = useState(0); // 同じchildでも再描画するためのカウンタ
+	// const [cnt, setCnt] = useState(0); // 同じchildでも再描画するためのカウンタ
 	const routeRef = useRef(null);
 
 	/**
@@ -59,7 +59,7 @@ export default function Routes({ element: Element, children }) {
 	 * レンダーのためにchildも更新する
 	 */
 	const determineRoute = useCallback(() => {
-		setCnt(cnt => (cnt + 1) % 1000); // 1000まででループ
+		// setCnt(cnt => (cnt + 1) % 1000); // 1000まででループ
 		const selected = selectChild(children);
 		if (!selected) return;
 
@@ -89,8 +89,10 @@ export default function Routes({ element: Element, children }) {
 	}, [clearRouteRef, determineRoute, handleStateChange]);
 
 	if (!child) return null;
-	if (Element) return <Element key={cnt}>{child}</Element>;
-	else return <RouteWrapper key={cnt}>{child}</RouteWrapper>;
+	// if (Element) return <Element key={cnt}>{child}</Element>;
+	// else return <RouteWrapper key={cnt}>{child}</RouteWrapper>;
+	if (Element) return <Element>{child}</Element>;
+	else return <>{child}</>;
 }
 
 /**

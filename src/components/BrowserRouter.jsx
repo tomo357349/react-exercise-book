@@ -24,8 +24,8 @@ export default function BrowserRouter({ children }) {
 	}, [setParams]);
 
 	useEffect(() => {
-		subscribeState(callback, true);
-		subscribeState(lastCallback, false, true);
+		subscribeState(callback, { root: true });
+		subscribeState(lastCallback, { last: true });
 
 		setParams(getParams());
 
@@ -34,23 +34,6 @@ export default function BrowserRouter({ children }) {
 			unsubscribeState(lastCallback);
 		};
 	}, [callback, lastCallback]);
-
-	// 開発用
-	if (process.env.NODE_ENV === 'development') {
-		// 本番用のログインページはReactアプリケーション内におかないため、開発用のログインページを表示する
-		if (location.pathname === '/login') {
-			return (
-				<main style={{position: "fixed", top: 0, bottom: 0, left: 0, right: 0, display: "grid", gridTemplateRows: "1fr auto 1fr", gridTemplateColumns: "1fr auto 1fr"}}>
-					<article style={{gridRow: 2, gridColumn: 2, textAlign: "center"}}>
-						<h1>開発用ログインページ</h1>
-						<div>ユーザID: u0001</div>
-						<div>ユーザ名: 山田太郎</div>
-						<button onClick={() => location.href = '/'}>ログイン</button>
-					</article>
-				</main>
-			);
-		}
-	}
 
 	return <RouterContext value={[params]}>{children}</RouterContext>;
 }

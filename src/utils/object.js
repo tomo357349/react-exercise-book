@@ -13,13 +13,16 @@ export function isVoid(o) {
 /**
  * 引数がnullやundefinedか空文字でないかどうかを調べます。
  *
- * @param {any} o 
+ * @param {any} o 検査対象の値
+ * @param {{ zero: boolean, bool: boolean }} options
  * @returns {boolean} nullやundefinedか空文字でないならtrue
  */
-export function isEmpty(o) {
+export function isEmpty(o, { zero = false, bool = false } = {}) {
 	if (o === undefined) return true;
 	if (o === null) return true;
 	if (o === '') return true;
+	if (zero && o === 0) return true;
+	if (bool && o === false) return true;
 	return false;
 }
 
@@ -75,11 +78,16 @@ export function isSame(a, b) {
 	return false;
 }
 
-export function hasAnyValue(o) {
-	if (o === undefined) return false;
-	if (o === null) return false;
-	if (o === '') return false;
+/**
+ * 何か値があるかどうか検査する
+ *
+ * @param {any} o 
+ * @param {{ zero: boolean, bool: boolean }} options 
+ * @returns 
+ */
+export function hasAnyValue(o, { zero = false, bool = false } = {}) {
+	if (isEmpty(o)) return false;
 	if (Array.isArray(o) && o.length === 0) return false;
-	if (typeof(o) === 'object' && !Object.keys(o).reduce((hasValue, k) => hasValue || !isEmpty(o[k]), false)) return false;
+	if (typeof(o) === 'object' && !Object.keys(o).reduce((hasValue, k) => hasValue || !isEmpty(o[k], { zero, bool }), false)) return false;
 	return true;
 }
