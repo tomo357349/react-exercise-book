@@ -40,9 +40,16 @@ function selectChild(children) {
  * Router配下の任意のノードに配置するコンポーネント。
  * URLパスに従い配下のRouteのうちひとつを選択して描画する。
  */
-export default function Routes({ element: Element, children }) {
+export default function Routes({ template: Template, children, ...templateProps }) {
+	// childrenがダイナミックに変化することを許容しないので最初にrefにいれておきそっちを使う
+	const refChildren = useRef(children);
+
+	// とはいえ変更は一応反映する（パフォーマンスが悪ければこのコードは削除する
+	useEffect(() => {
+		refChildren.current = children;
+	}, [children]);
+
 	const [child, setChild] = useState();
-	// const [cnt, setCnt] = useState(0); // 同じchildでも再描画するためのカウンタ
 	const routeRef = useRef(null);
 
 	/**
@@ -59,8 +66,7 @@ export default function Routes({ element: Element, children }) {
 	 * レンダーのためにchildも更新する
 	 */
 	const determineRoute = useCallback(() => {
-		// setCnt(cnt => (cnt + 1) % 1000); // 1000まででループ
-		const selected = selectChild(children);
+		const selected = selectChild(refChildren.current);
 		if (!selected) return;
 
 		const [nextChild, nextRoute] = selected;
@@ -69,36 +75,19 @@ export default function Routes({ element: Element, children }) {
 			route: nextRoute,
 		};
 		setChild(nextChild);
-	}, [children, setChild]);
-
-	/**
-	 * state変更後イベントハンドラ
-	 */
-	const handleStateChange = useCallback(() => {
-		determineRoute();
-	}, [determineRoute]);
+	}, [setChild]);
 
 	useEffect(() => {
-		subscribeState(handleStateChange);
+		subscribeState(determineRoute);
 		determineRoute();
 
 		return () => {
-			unsubscribeState(handleStateChange);
+			unsubscribeState(determineRoute);
 			clearRouteRef();
 		};
-	}, [clearRouteRef, determineRoute, handleStateChange]);
+	}, [clearRouteRef, determineRoute]);
 
 	if (!child) return null;
-	// if (Element) return <Element key={cnt}>{child}</Element>;
-	// else return <RouteWrapper key={cnt}>{child}</RouteWrapper>;
-	if (Element) return <Element>{child}</Element>;
+	if (Template) return <Template {...templateProps}>{child}</Template>;
 	else return <>{child}</>;
-}
-
-/**
- * ルーティングが決定したときに描画するコンポーネントのためのラッパー
- * コンポーネント更新のためにkeyをつけたいのでこのラッパーを挟む
- */
-function RouteWrapper({ children }) {
-	return <>{children}</>;
 }

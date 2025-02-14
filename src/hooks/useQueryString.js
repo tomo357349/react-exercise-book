@@ -38,7 +38,7 @@ export default function useQueryString(defaultParams, ignoreStateChange) {
 		const nextQuery = getQuery();
 		setQuery(nextQuery);
 		return nextQuery;
-	}, [setQuery]);
+	}, [getQuery, setQuery]);
 
 	useEffect(() => {
 		if (!ignore) subscribeState(updateQuery, { watch: true });
