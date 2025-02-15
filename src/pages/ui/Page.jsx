@@ -12,6 +12,7 @@ import MultiLineInputControl from '../../components/MultiLineInputControl.jsx';
 import SelectControl from '../../components/SelectControl.jsx';
 import Accordion from '../../components/Accordion.jsx';
 import PageDialog from '../../PageDialog.jsx';
+import InputAssistControl from '../../components/InputAssistConrol.jsx';
 
 export default function Page() {
     const { data, isFetching, fetchNext } = useFetch('/api/dummy');
@@ -23,9 +24,14 @@ export default function Page() {
         sex: '',
         grade: 0,
         rate: 0,
+        code: '',
         isadmin: false,
     });
 
+    const { data: codeList } = useFetch('/api/country');
+
+    const selectedCode = codeList && codeList.find(d => d.value === form.code);
+    
     function handleChange(value, name) {
         setForm({...form, [name]: value});
     }
@@ -63,6 +69,20 @@ export default function Page() {
                     <InputControl type="checkbox" name="isadmin" value={form.isadmin} label="管理者" onChange={handleChange} />
                     <TagControl name="rate" tag={form.rate} label="正答率" face={form.rate <= 30 ? 'assertive' : 'positive'} onClick={handleClickRate} />
                     <TagControl name="rate" tag={<Icon name="user" />} /><br />
+                    <InputAssistControl name="code" value={form.code} label="コード" list={codeList} onChange={handleChange} componentSize="4chars" />
+                    <LabelControl value={selectedCode ? selectedCode.desc : ''} />
+                    <div className="form-control-wrapper">
+                        <div className="form-control">
+                            <input type="text" list="code" value={form.code} onInput={(evt) => handleChange(evt.target.value, 'code')} />
+                            <label>（比較用）Web標準のdataList</label>
+                            <datalist id="code">
+                                {codeList && codeList.map(d => (
+                                    <option key={d.value} value={d.value}>{d.desc}</option>
+                                ))}
+                            </datalist>
+                        </div>
+                    </div>
+                    <br />
                     <MultiLineInputControl name="desc" label="説明" rows="2" /><br />
                     <ButtonControl icon="check" type="submit">実行</ButtonControl>
                     {isFetching && <div>検索中.. <span className="loader"></span></div>}

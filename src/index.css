@@ -744,6 +744,44 @@ a .icon path {
 	backdrop-filter: blur(3px);
 }
 
+.input-list-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.input-list {
+  position: absolute;
+  top: 60px;
+  z-index: 21;
+  max-width: 240px;
+  max-height: 120px;
+  padding: var(--twice-padding-size);
+  padding-inline-start: 0;
+  margin: 0 var(--twice-padding-size);
+  overflow: hidden auto;
+  list-style-type: none;
+  background-color: var(--bg-color);
+  border-radius: var(--default-radius-size);
+}
+
+.input-list-selected {
+  display: block;
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.input-list-value,
+.input-list-desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.input-list-desc {
+  display: block;
+  font-size: var(--small-font-size);
+}
+
 @media screen and (width <= 640px) {
   .data-table {
     display: flex;
@@ -842,6 +880,12 @@ a .icon path {
 }
 
 @media screen and (prefers-color-scheme: dark) {
+  a:hover,
+  a:focus {
+    opacity: 1;
+    filter: brightness(150%);
+  }
+
   button:hover:not(:disabled, .btn-read-only),
   button:focus:not(:disabled, .btn-read-only) {
     opacity: 1;
@@ -866,5 +910,10 @@ a .icon path {
 
   input[type="checkbox"]:focus:not(:disabled)::after {
     background-color: var(--gray-dark-color);
+  }
+
+  .input-list-selected {
+    opacity: 1;
+    filter: brightness(150%);
   }
 }
