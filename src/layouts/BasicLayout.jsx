@@ -11,6 +11,7 @@ export default function BasicLayout({ menu, children }) {
     const [status, setStatus] = useState('');
     const statusHndl = useRef(null);
     const [isMenuShown, setIsMenuShowwn] = useState(false);
+    const [isAppear, setIsAppear] = useState(false);
 
     const handleSetTitle = useCallback((nextTitle) => {
         setTitle(nextTitle);
@@ -29,8 +30,15 @@ export default function BasicLayout({ menu, children }) {
     }, [setStatus]);
 
     const handleClickMenu = useCallback(() => {
-        setIsMenuShowwn(isMenuShown => !isMenuShown);
-    }, [setIsMenuShowwn]);
+        const nextIsMenuShown = !isMenuShown;
+        if (nextIsMenuShown) {
+            setIsMenuShowwn(nextIsMenuShown);
+            setTimeout(() => setIsAppear(nextIsMenuShown), 0);
+        } else {
+            setIsAppear(nextIsMenuShown);
+            setTimeout(() => setIsMenuShowwn(nextIsMenuShown), 200);
+        }
+    }, [isMenuShown, setIsMenuShowwn]);
 
     return (
         <PageContext value={{ setTitle: handleSetTitle, setStatus: handleSetStatus}}>
@@ -44,7 +52,11 @@ export default function BasicLayout({ menu, children }) {
             <footer>
                 <div className="page-status">{status}</div>
             </footer>
-            {menu && <nav className={isMenuShown ? 'appear' : ''} onClick={handleClickMenu}>{menu}</nav>}
+            {menu && isMenuShown && <>
+                <div className="page-menu-backdrop" onClick={handleClickMenu}>
+                    <nav className={isAppear ? 'page-menu appear' : 'page-menu'}>{menu}</nav>
+                </div>
+            </>}
         </PageContext>
     );
 }

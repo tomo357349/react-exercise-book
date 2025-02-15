@@ -72,20 +72,28 @@ footer {
   background-color: var(--gray-light-color);
 }
 
-nav {
+.page-menu-backdrop {
   position: fixed;
-  top: calc(var(--twice-padding-size) * 2 + var(--x-large-font-size));
+  inset: 40px 0 0;
+  z-index: 151;
+	background-color: #0006;
+	backdrop-filter: blur(3px);
+}
+
+.page-menu {
+  position: fixed;
+  top: 0;
   bottom: 0;
   left: 0;
+  z-index: 152;
   width: 240px;
   background-color: var(--bg-color);
-  border-right: solid 2px var(--gray-light-color);
-  transform: translate(-242px, 0);
-  transition-duration: 500ms;
+  transform: translate(-240px, 0);
+  transition-duration: 200ms;
   transition-property: transform;
 }
 
-nav.appear {
+.page-menu.appear {
   transform: translate(0, 0);
 }
 
@@ -130,6 +138,11 @@ a {
   cursor: pointer;
 }
 
+nav li > a {
+  display: block;
+  padding: var(--twice-padding-size);
+}
+
 a:hover,
 a:focus {
   text-decoration: underline;
@@ -146,7 +159,7 @@ nav ul {
 }
 
 nav li {
-  padding: var(--twice-padding-size);
+  padding: 0;
 }
 
 button {
@@ -523,23 +536,27 @@ main .data-table > caption {
   height: var(--default-font-size);
 }
 
-.icon > path {
+.icon path {
   fill: var(--text-color);
 }
 
-.icon.icon-primary > path {
+a .icon path {
+  fill: var(--link-color);
+}
+
+.icon.icon-primary path {
   fill: var(--primary-color);
 }
 
-.icon.icon-secondary > path {
+.icon.icon-secondary path {
   fill: var(--secondary-color);
 }
 
-.icon.icon-assertive > path {
+.icon.icon-assertive path {
   fill: var(--assertive-color);
 }
 
-.icon.icon-cancel > path {
+.icon.icon-cancel path {
   fill: var(--cancel-color);
 }
 
