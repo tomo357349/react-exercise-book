@@ -62,7 +62,7 @@ header {
 }
 
 main {
-  flex: 1 0 1px;
+  display: block;
   padding: var(--default-padding-size);
   overflow: auto;
 }
@@ -780,6 +780,80 @@ a .icon path {
 .input-list-desc {
   display: block;
   font-size: var(--small-font-size);
+}
+
+.markdown-preview blockquote {
+  padding: var(--default-padding-size);
+  margin: var(--default-padding-size);
+  border-left: var(--gray-light-color) solid 8px;
+}
+
+.markdown-preview blockquote::before {
+  display: block;
+  font-weight: bold;
+}
+
+.markdown-preview blockquote.note {
+  border-color: var(--primary-color);
+}
+
+.markdown-preview blockquote.note::before {
+  color: var(--primary-color);
+  content: 'Note:';
+}
+
+.markdown-preview blockquote.tip {
+  border-color: var(--base-color);
+}
+
+.markdown-preview blockquote.tip::before {
+  color: var(--base-color);
+  content: 'Tips:';
+}
+
+.markdown-preview blockquote.important {
+  border-color: var(--light-gray-color);
+}
+
+.markdown-preview blockquote.important::before {
+  color: var(--light-gray-color);
+  content: 'Important:';
+}
+
+.markdown-preview blockquote.warning {
+  border-color: var(--assertive-color);
+}
+
+.markdown-preview blockquote.warning::before {
+  color: var(--assertive-color);
+  content: 'Warning:';
+}
+
+.markdown-preview blockquote.caution {
+  border-color: var(--secondary-color);
+}
+
+.markdown-preview blockquote.caution::before {
+  color: var(--secondary-color);
+  content: 'Caution:';
+}
+
+.page-markdown {
+  display: grid;
+  flex: 1 0 1px;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.page-markdown-panel {
+  display: grid;
+  overflow: auto;
+}
+
+.page-markdown-preview {
+  overflow-x: auto;
 }
 
 @media screen and (width <= 640px) {

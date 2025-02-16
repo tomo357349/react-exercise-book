@@ -13,6 +13,7 @@ import SelectControl from '../../components/SelectControl.jsx';
 import Accordion from '../../components/Accordion.jsx';
 import PageDialog from '../../PageDialog.jsx';
 import InputAssistControl from '../../components/InputAssistConrol.jsx';
+import MarkdownPreview from '../../components/MarkdownPreview.jsx';
 
 export default function Page() {
     const { data, isFetching, fetchNext } = useFetch('/api/dummy');
@@ -32,6 +33,8 @@ export default function Page() {
 
     const selectedCode = codeList && codeList.find(d => d.value === form.code);
     
+    const [text, setText] = useState('');
+
     function handleChange(value, name) {
         setForm({...form, [name]: value});
     }
@@ -83,7 +86,8 @@ export default function Page() {
                         </div>
                     </div>
                     <br />
-                    <MultiLineInputControl name="desc" label="説明" rows="2" /><br />
+                    <MultiLineInputControl name="desc" label="説明" rows="2" value={text} onInput={evt => setText(evt.target.value)} /><br />
+                    <MarkdownPreview value={text} /><br />
                     <ButtonControl icon="check" type="submit">実行</ButtonControl>
                     {isFetching && <div>検索中.. <span className="loader"></span></div>}
                     <LabelControl value={data && data.length} />

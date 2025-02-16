@@ -17,6 +17,8 @@ const Search = lazy(() => import('./pages/search/Page.jsx'));
 const UI = lazy(() => import('./pages/ui/Page.jsx'));
 // import Layout from './pages/layout/Page.jsx';
 const Layout = lazy(() => import('./pages/layout/Page.jsx'));
+// import Markdown from './pages/markdown/Page.jsx';
+const Markdown = lazy(() => import('./pages/markdown/Page.jsx'));
 
 export default function App() {
     const menu = (
@@ -27,6 +29,7 @@ export default function App() {
             <li><NavLink to="/search">検索・登録デモ</NavLink></li>
             <li><NavLink to="/ui">UIサンプル</NavLink></li>
             <li><NavLink to="/layout">レイアウトサンプル</NavLink></li>
+            <li><NavLink to="/markdown">Markdownサンプル</NavLink></li>
         </ul>
     );
 
@@ -40,6 +43,7 @@ export default function App() {
                     <Route path="search" element={<Search />} />
                     <Route path="ui" element={<UI />} />
                     <Route path="layout" element={<Layout />} />
+                    <Route path="markdown" element={<Markdown />} />
                     <Route path="*" element={<div>Error</div>} />
                 </Routes>
             </BrowserRouter>
