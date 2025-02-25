@@ -63,6 +63,7 @@ header {
 
 main {
   display: block;
+  flex: 1 0 1px;
   padding: var(--default-padding-size);
   overflow: auto;
 }
